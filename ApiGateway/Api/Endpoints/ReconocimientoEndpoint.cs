@@ -4,6 +4,7 @@ using Api.Models.Response;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
+using RabbitMQ.Client.Exceptions;
 using RabbitMqService.Abstractions;
 using RabbitMqService.Queues;
 using Swashbuckle.AspNetCore.Annotations;
