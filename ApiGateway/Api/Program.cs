@@ -29,10 +29,11 @@ var app = builder.Build();
 app.UseCors("CorsApi");
 using (var scope = app.Services.CreateScope())
 {
-    scope.ServiceProvider.GetService<ReconocimientoEndpoint>()?.MapReconocimientoEndpoint(app);
     scope.ServiceProvider.GetService<RabbitServiceEndpoint>()?.MapRabbitServiceEndpoint(app);
     scope.ServiceProvider.GetService<ServicesStatusEndpoint>()?.MapServicesStatusEndpoint(app);
     scope.ServiceProvider.GetService<LogsEndpoint>()?.MapLogEndpoint(app);
+    scope.ServiceProvider.GetService<InformacionEndpoint>()?.MapInformacionEndpoint(app);
+    scope.ServiceProvider.GetService<PreciosEndpoint>()?.MapPrecioEndpoint(app);
 }
 
 
@@ -44,11 +45,13 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
 {
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen();
-    services.AddScoped<ReconocimientoEndpoint>();
     services.AddScoped<RabbitServiceEndpoint>();
     services.AddScoped<ServicesStatusEndpoint>();
     services.AddScoped<LogsEndpoint>();
-    
+    services.AddScoped<PreciosEndpoint>();
+    services.AddScoped<InformacionEndpoint>();
+    services.AddScoped<FullApisConfig>();
+
     services.AddScoped<ILogServices,LogServices>();
     services.AddScoped<ILogRepository, LogRepository>();
 
@@ -66,7 +69,7 @@ void ConfigureServices(IServiceCollection services, IConfiguration configuration
         queues.Add<Reconocimiento>();
     });
 
-    builder.Services.AddConfig<ApiReconocimientoConfig>(builder.Configuration, nameof(ApiReconocimientoConfig));
+    builder.Services.AddConfig<ApisConfig>(builder.Configuration, nameof(ApisConfig));
     builder.Services.AddConfig<DockerConfig>(builder.Configuration, nameof(DockerConfig));
     builder.Services.AddConfig<ConnectionStrings>(builder.Configuration, nameof(ConnectionStrings));
 

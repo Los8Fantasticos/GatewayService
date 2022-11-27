@@ -9,14 +9,14 @@ namespace Api.Endpoints
 {
     public class RabbitServiceEndpoint
     {
-        private readonly ILogger<ReconocimientoEndpoint> _logger;
-        private readonly ApiReconocimientoConfig _apiReconocimientoConfig;
+        private readonly ILogger<RabbitServiceEndpoint> _logger;
+        private readonly ApisConfig _apiReconocimientoConfig;
         private readonly MessageManager _messageManager;
         private readonly DockerConfig _dockerConfig;
         private readonly string ReconocimientoController = "Reconocimiento";
-        public RabbitServiceEndpoint(ILoggerFactory logger, ApiReconocimientoConfig apiReconocimientoConfig, MessageManager messageManager, DockerConfig dockerConfig)
+        public RabbitServiceEndpoint(ILoggerFactory logger, ApisConfig apiReconocimientoConfig, MessageManager messageManager, DockerConfig dockerConfig)
         {
-            _logger = logger.CreateLogger<ReconocimientoEndpoint>();
+            _logger = logger.CreateLogger<RabbitServiceEndpoint>();
             _apiReconocimientoConfig = apiReconocimientoConfig;
             _messageManager = messageManager;
             _dockerConfig = dockerConfig;

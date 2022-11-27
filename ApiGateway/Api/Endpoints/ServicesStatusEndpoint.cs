@@ -9,13 +9,13 @@ namespace Api.Endpoints
 {
     public class ServicesStatusEndpoint
     {
-        private readonly ILogger<ReconocimientoEndpoint> _logger;
-        private readonly ApiReconocimientoConfig _apiReconocimientoConfig;
+        private readonly ILogger<ServicesStatusEndpoint> _logger;
+        private readonly ApisConfig _apiReconocimientoConfig;
         private readonly MessageManager _messageManager;
         private readonly DockerConfig _dockerConfig;
-        public ServicesStatusEndpoint(ILoggerFactory logger, ApiReconocimientoConfig apiReconocimientoConfig, MessageManager messageManager, DockerConfig dockerConfig)
+        public ServicesStatusEndpoint(ILoggerFactory logger, ApisConfig apiReconocimientoConfig, MessageManager messageManager, DockerConfig dockerConfig)
         {
-            _logger = logger.CreateLogger<ReconocimientoEndpoint>();
+            _logger = logger.CreateLogger<ServicesStatusEndpoint>();
             _apiReconocimientoConfig = apiReconocimientoConfig;
             _messageManager = messageManager;
             _dockerConfig = dockerConfig;
@@ -58,25 +58,23 @@ namespace Api.Endpoints
            .Produces<ApiError>(StatusCodes.Status404NotFound, contentType: MediaTypeNames.Application.Json)
            .Produces<ApiError>(StatusCodes.Status500InternalServerError, contentType: MediaTypeNames.Application.Json);
 
-            _ = app.MapPost(
-               "/api/servicesstatus/asdsad",
+            _ = app.MapGet(
+               "/api/servicesstatus/getStatus",
                async () =>
                {
                    try
                    {
-                       _logger.LogInformation("Cerrando el canal de RabbitMq");
-                       _messageManager.Channel.Close();
-                       return "Ok";
+                       return true;
                    }
                    catch (AlreadyClosedException ex)
                    {
                        _logger.LogError(ex, "Error al cerrar el canal de RabbitMq");
-                       return "Error al cerrar el canal de RabbitMq";
+                       return false;
                    }
                    catch (Exception ex)
                    {
                        _logger.LogError(ex, "Error en endpoint post reconocimiento");
-                       throw;
+                       return false;
                    }
                })
            .WithTags("ServicesStatus")

@@ -12,13 +12,13 @@ namespace Api.Endpoints
     [EnableCors("CorsApi")]
     public class LogsEndpoint
     {
-        private readonly ILogger<ReconocimientoEndpoint> _logger;
+        private readonly ILogger<LogsEndpoint> _logger;
         private readonly MessageManager _messageManager;
         private readonly DockerConfig _dockerConfig;
         private readonly ILogServices _logServices;
         public LogsEndpoint(ILoggerFactory logger, MessageManager messageManager, DockerConfig dockerConfig, ILogServices logServices)
         {
-            _logger = logger.CreateLogger<ReconocimientoEndpoint>();
+            _logger = logger.CreateLogger<LogsEndpoint>();
             _messageManager = messageManager;
             _dockerConfig = dockerConfig;
             _logServices = logServices;
@@ -48,7 +48,7 @@ namespace Api.Endpoints
                    }
                    catch (Exception ex)
                    {
-                       _logger.LogError(ex, "Error en endpoint post reconocimiento");
+                       _logger.LogError(ex, "Error el obtener logs");
                        throw;
                    }
                })
