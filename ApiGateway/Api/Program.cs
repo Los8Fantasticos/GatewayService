@@ -2,6 +2,7 @@ using Api.Configurations;
 using Api.Configurations.AppSettings;
 using Api.CrossCutting.Extensions;
 using Api.Endpoints;
+using Api.Endpoints.Middleware;
 using Api.Repositories;
 using Api.Services;
 using RabbitMqService.Queues;
@@ -89,7 +90,7 @@ void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         app.UseSwagger();
         app.UseSwaggerUI(options => options.SwaggerEndpoint("/swagger/v1/swagger.json", "WhiteRabbit v1"));
     }
-
+    app.UseMiddleware<ActionMiddleware>();
     app.UseHttpsRedirection();
 
     app.UseRouting();
