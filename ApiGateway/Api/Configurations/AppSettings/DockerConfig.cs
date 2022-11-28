@@ -8,5 +8,11 @@
         public string DockerPassword { get; set; }
         public string ReconocimientoId { get; set; }
         public string ReconocimientoImage { get; set; }
+
+        public string MultasId { get; set; }
+        public string MultasImage { get; set; }
+
+        public string PagosId { get; set; }
+        public string PagosImage { get; set; }
     }
 }
