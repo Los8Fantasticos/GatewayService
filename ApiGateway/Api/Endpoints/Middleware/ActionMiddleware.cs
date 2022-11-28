@@ -25,6 +25,7 @@ namespace Api.Endpoints.Middleware
 
         public async Task InvokeAsync(HttpContext context)
         {
+            _logger.LogInformation("Ingresando al middleware...");
             if(context.Request.Path == "/api/servicesstatus/changeStatusGateway")
             {
                 await _next(context);
