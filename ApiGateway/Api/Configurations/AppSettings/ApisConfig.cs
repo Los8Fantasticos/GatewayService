@@ -14,7 +14,7 @@
             _apisConfig = apisConfig;
         }
         public string PatentesEndpoint { get { return _apisConfig.ReconocimientoBaseUrl + "api/patentes/"; } }
-        public string MultasEndpoint { get { return _apisConfig.ReconocimientoBaseUrl + "api/multas/"; } }
-        public string PagosEndpoint { get { return _apisConfig.ReconocimientoBaseUrl + "api/pagos/"; } }
+        public string MultasEndpoint { get { return _apisConfig.MultasBaseUrl + "api/multas/"; } }
+        public string PagosEndpoint { get { return _apisConfig.PagosBaseUrl + "api/pagos/"; } }
     }
 }

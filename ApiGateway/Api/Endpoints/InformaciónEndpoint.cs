@@ -33,6 +33,10 @@ namespace Api.Endpoints
                         var result = await RequestHelper.GetRequest<int>(url);
                         return Results.Ok(result);
                     }
+                    catch (HttpRequestException ex)
+                    {
+                        return Results.Conflict(new ApiError(ex.Message, (int)ErrorCodeEnum.NoConnection));
+                    }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Error obteniendo tránsito generado de api reconocimiento");
@@ -57,6 +61,10 @@ namespace Api.Endpoints
                         var result = await RequestHelper.GetRequest<int>(url);
                         return Results.Ok(result);
                     }
+                    catch (HttpRequestException ex)
+                    {
+                        return Results.Conflict(new ApiError(ex.Message, (int)ErrorCodeEnum.NoConnection));
+                    }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Error al obtener patentes reconocidas en api reconocimiento");
@@ -80,6 +88,10 @@ namespace Api.Endpoints
                         string url = _fullApisConfig.PatentesEndpoint + "transitoNoReconocido";
                         var result = await RequestHelper.GetRequest<int>(url);
                         return Results.Ok(result);
+                    }
+                    catch (HttpRequestException ex)
+                    {
+                        return Results.Conflict(new ApiError(ex.Message, (int)ErrorCodeEnum.NoConnection));
                     }
                     catch (Exception ex)
                     {
@@ -133,6 +145,10 @@ namespace Api.Endpoints
                         var result = await RequestHelper.GetRequest<int>(url);
                         return Results.Ok(result);
                     }
+                    catch (HttpRequestException ex)
+                    {
+                        return Results.Conflict(new ApiError(ex.Message, (int)ErrorCodeEnum.NoConnection));
+                    }
                     catch (Exception ex)
                     {
                         _logger.LogError(ex, "Error al obtener multas emitidas de api multas");
@@ -156,6 +172,10 @@ namespace Api.Endpoints
                         string url = _fullApisConfig.PagosEndpoint + "/totalFacturado";
                         var result = await RequestHelper.GetRequest<double>(url);
                         return Results.Ok(result);
+                    }
+                    catch (HttpRequestException ex)
+                    {
+                        return Results.Conflict(new ApiError(ex.Message, (int)ErrorCodeEnum.NoConnection));
                     }
                     catch (Exception ex)
                     {
