@@ -31,9 +31,9 @@ namespace Api.Endpoints
                    {
                        _logger.LogInformation("Cerrando el canal de RabbitMq");
                        //CmdHelper.RunCommand("docker run "+_dockerConfig.ReconocimientoImage);
-                       var a =CmdHelper.RunCommandOutput($"ps --filter status=running");
+                       //var a =CmdHelper.RunCommandOutput($"ps --filter status=running");
 
-                       var r = CmdHelper.RunCommandOutput($"status " + _dockerConfig.ReconocimientoImage);
+                       /*var r = await CmdHelper.RunCommandOutput($"status " + _dockerConfig.ReconocimientoImage)*/;
 
                        CmdHelper.RunCommand($"stop " + _dockerConfig.ReconocimientoImage);
 

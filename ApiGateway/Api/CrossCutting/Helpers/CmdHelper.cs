@@ -39,8 +39,8 @@ namespace Api.CrossCutting.Helpers
                 throw ex;
             }
         }
-
-        public static string RunCommandOutput(string cmd)
+        
+        public static async Task<string> RunCommandOutput(string cmd)
         {
             string Output = string.Empty;
             try
@@ -49,26 +49,24 @@ namespace Api.CrossCutting.Helpers
 
                 processInfo.CreateNoWindow = true;
                 processInfo.UseShellExecute = false;
-                //processInfo.RedirectStandardOutput = true;
                 processInfo.RedirectStandardError = true;
 
                 int exitCode;
-                using (var process = new Process())
+                var process = new Process();
+                process.StartInfo = processInfo;
+                process.Start();
+                StreamReader reader = process.StandardOutput;
+                process.StartInfo.RedirectStandardOutput = false;
+                Output = reader.ReadToEnd();
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                process.WaitForExit(1200000);
+                if (!process.HasExited)
                 {
-                    process.StartInfo = processInfo;
-                    process.Start();
-                    StreamReader reader = process.StandardOutput;
-                    Output = reader.ReadToEnd();
-                    process.BeginOutputReadLine();
-                    process.BeginErrorReadLine();
-                    process.WaitForExit(1200000);
-                    if (!process.HasExited)
-                    {
-                        process.Kill();
-                    }
-                    exitCode = process.ExitCode;
-                    process.Close();
+                    process.Kill();
                 }
+                exitCode = process.ExitCode;
+                process.Close();
                 return Output;
             }
             catch (Exception ex)
