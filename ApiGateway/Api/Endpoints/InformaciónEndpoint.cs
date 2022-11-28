@@ -111,7 +111,7 @@ namespace Api.Endpoints
                 async () =>
                 {
                     try
-                    {
+                     {
                         _logger.LogInformation("Obteniendo multas emitidas de api multas");
                         string url = _fullApisConfig.MultasEndpoint;
                         var result = await RequestHelper.GetRequest<int>(url);
@@ -169,8 +169,8 @@ namespace Api.Endpoints
                     try
                     {
                         _logger.LogInformation("Obteniendo el total facturado de api pagos");
-                        string url = _fullApisConfig.PagosEndpoint + "/totalFacturado";
-                        var result = await RequestHelper.GetRequest<double>(url);
+                        string url = _fullApisConfig.PagosEndpoint + "totalFacturado";
+                        var result = await RequestHelper.GetRequest<double?>(url);
                         return Results.Ok(result);
                     }
                     catch (HttpRequestException ex)
